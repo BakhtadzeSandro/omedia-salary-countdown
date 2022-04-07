@@ -1,0 +1,37 @@
+{
+  "name": "salary",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^1.8.7",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "@fontsource/open-sans": "^4.5.8",
+    "@fontsource/poppins": "^4.5.5",
+    "@fontsource/raleway": "^4.5.5",
+    "date-fns": "^2.28.0",
+    "framer-motion": "^6",
+    "react": "^17.0.2",
+    "react-countdown": "^2.3.2",
+    "react-countdown-circle-timer": "^3.0.9",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.18.0",
+    "@typescript-eslint/parser": "^5.18.0",
+    "@vitejs/plugin-react": "^1.0.7",
+    "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.2",
+    "vite": "^2.9.0"
+  }
+}
