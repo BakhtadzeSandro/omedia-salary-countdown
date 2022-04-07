@@ -54,20 +54,23 @@ export default function App() {
             {({ elapsedTime, color }) => {
               const days = getTimeDays(duration - elapsedTime);
               return (
-                <Text fontFamily={"poppins"} fontSize={"4xl"} style={{ color }}>
-                  {days} day{days > 1 && "s"}
-                </Text>
+                <Box fontFamily={"poppins"} style={{ color }} textAlign="center">
+                  <Text fontWeight="bold" fontSize={64}>{days}</Text>
+                  <Text fontSize={"4xl"}>day{days > 1 && "s"}</Text>
+                </Box>
               );
             }}
           </CountdownCircleTimer>
         </Box>
       </Center>
 
-      <Center mt="5">
-        <Text fontSize={"2xl"}>
+      <Box mt="5" textAlign={"center"}>
+        <Text fontSize={"xl"}>Next pay date is:</Text>
+
+        <Text fontWeight="bold" fontSize={"2xl"}>
           {format(nextSalary, "MMMM do yyyy")}
         </Text>
-      </Center>
+      </Box>
     </Layout>
   );
 }
