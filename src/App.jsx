@@ -68,7 +68,7 @@ export default function App() {
         <Text fontSize={"xl"}>Next pay date is:</Text>
 
         <Text fontWeight="bold" fontSize={"2xl"}>
-          {format(nextSalary, "MMMM do yyyy")}
+          {format(nextSalary, "EEEE, MMMM do yyyy")}
         </Text>
       </Box>
     </Layout>
