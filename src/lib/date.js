@@ -24,7 +24,7 @@ function getNextSalaryDate(salaryDay = 15) {
   const date = new Date();
 
   if (date.getDate() > salaryDay) {
-    date.setMonth(date.getMonth() + 1);
+    date.setMonth(date.getMonth() + 1, 1);
   }
   date.setDate(salaryDay);
   fixSalaryDay(date);
