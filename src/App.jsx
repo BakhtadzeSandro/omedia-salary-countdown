@@ -12,13 +12,18 @@ import {
   InputRightAddon,
   useTheme,
   NumberInput,
-  NumberInputField
+  NumberInputField,
 } from "@chakra-ui/react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { format } from "date-fns";
 import { useState } from "react";
 import "@fontsource/poppins";
-import { calculateDiff, DAY_SECONDS, getComponentData, getTimeDays } from "./lib";
+import {
+  calculateDiff,
+  DAY_SECONDS,
+  getComponentData,
+  getTimeDays,
+} from "./lib";
 
 export default function App() {
   const theme = useTheme();
@@ -34,13 +39,17 @@ export default function App() {
   const [currentSalary, setCurrentSalary] = useState(0.0);
 
   async function onSalaryChange(e) {
-    const { diff, salaryInGELWithCurrentRate } = await calculateDiff(e.target.value);
+    const { diff, salaryInGELWithCurrentRate } = await calculateDiff(
+      e.target.value,
+      salaryDay
+    );
 
     setSalaryDiff(diff);
     setCurrentSalary(salaryInGELWithCurrentRate);
   }
 
-  return (<Layout>
+  return (
+    <Layout>
       <Tabs variant="line" isFitted colorScheme="brand">
         <TabList>
           <Tab>💵 Pay Date</Tab>
@@ -49,62 +58,78 @@ export default function App() {
 
         <TabPanels>
           <TabPanel>
-            {remainingTime === 0 ? <Center height="60vh" textAlign={"center"}>
-              <Text fontFamily={"poppins"} mt="12" fontSize={"4xl"} as="h1">
-                Today is a salary day! 🎉
-              </Text>
-            </Center> : <>
-              <Center height="60vh">
-                <Box
-                  bg="white"
-                  boxShadow="2xl"
-                  rounded="lg"
-                  w="400"
-                  h="400"
-                  display={"flex"}
-                  justifyContent={"center"}
-                  alignItems={"center"}
-                  p="4"
-                >
-                  <CountdownCircleTimer
-                    updateInterval={DAY_SECONDS}
-                    isPlaying="true"
-                    size="300"
-                    strokeWidth="15"
-                    colors={theme.colors.brand[100]}
-                    duration={duration}
-                    initialRemainingTime={remainingTime}
-                  >
-                    {({ elapsedTime, color }) => {
-                      const days = getTimeDays(duration - elapsedTime);
-                      return (<Box fontFamily={"poppins"} style={{ color }} textAlign="center">
-                          <Text fontWeight="bold" fontSize={64}>{days}</Text>
-                          <Text fontSize={"4xl"}>day{days > 1 && "s"}</Text>
-                        </Box>);
-                    }}
-                  </CountdownCircleTimer>
-                </Box>
-              </Center>
-
-              <Box mt="5" textAlign={"center"}>
-                <Text fontSize={"xl"}>Next pay date is:</Text>
-
-                <Text fontWeight="bold" fontSize={"2xl"}>
-                  {format(nextSalary, "EEEE, MMMM do yyyy")}
+            {remainingTime === 0 ? (
+              <Center height="60vh" textAlign={"center"}>
+                <Text fontFamily={"poppins"} mt="12" fontSize={"4xl"} as="h1">
+                  Today is a salary day! 🎉
                 </Text>
-              </Box>
-            </>}
+              </Center>
+            ) : (
+              <>
+                <Center height="60vh">
+                  <Box
+                    bg="white"
+                    boxShadow="2xl"
+                    rounded="lg"
+                    w="400"
+                    h="400"
+                    display={"flex"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    p="4"
+                  >
+                    <CountdownCircleTimer
+                      updateInterval={DAY_SECONDS}
+                      isPlaying="true"
+                      size="300"
+                      strokeWidth="15"
+                      colors={theme.colors.brand[100]}
+                      duration={duration}
+                      initialRemainingTime={remainingTime}
+                    >
+                      {({ elapsedTime, color }) => {
+                        const days = getTimeDays(duration - elapsedTime);
+                        return (
+                          <Box
+                            fontFamily={"poppins"}
+                            style={{ color }}
+                            textAlign="center"
+                          >
+                            <Text fontWeight="bold" fontSize={64}>
+                              {days}
+                            </Text>
+                            <Text fontSize={"4xl"}>day{days > 1 && "s"}</Text>
+                          </Box>
+                        );
+                      }}
+                    </CountdownCircleTimer>
+                  </Box>
+                </Center>
+
+                <Box mt="5" textAlign={"center"}>
+                  <Text fontSize={"xl"}>Next pay date is:</Text>
+
+                  <Text fontWeight="bold" fontSize={"2xl"}>
+                    {format(nextSalary, "EEEE, MMMM do yyyy")}
+                  </Text>
+                </Box>
+              </>
+            )}
           </TabPanel>
           <TabPanel>
             <Box mt="2">
-              <Text mb="5">In <strong>05/05/2023</strong> Omedia has changed the salary calculation policy:</Text>
+              <Text mb="5">
+                In <strong>05/05/2023</strong> Omedia has changed the salary
+                calculation policy:
+              </Text>
 
               <ul>
                 <li>
                   Your current GEL-denominated salary will be converted to a
                   USD-denominated amount using an exchangerate of
                   <strong>2.5</strong>. For example, if your current salary is
-                  3,000 GEL, it will be converted to 1,200 USD (3,000 GEL / 2.5 = 1,200 USD).
+                  3,000 GEL, it will be converted to 1,200 USD (3,000 GEL / 2.5 =
+                  1,200 USD).
                 </li>
                 <li>
                   Your salary will continue to be paid in GEL, but the amount
@@ -114,7 +139,9 @@ export default function App() {
                 </li>
               </ul>
 
-              <Text mt="5">This calculator can help you to identify your salary diff.</Text>
+              <Text mt="5">
+                This calculator can help you to identify your salary diff.
+              </Text>
             </Box>
 
             <Center height="20vh">
@@ -128,25 +155,37 @@ export default function App() {
               >
                 <InputGroup>
                   <NumberInput min={1}>
-                    <NumberInputField placeholder="Enter your salary" inputMode="numeric" onChange={onSalaryChange} />
+                    <NumberInputField
+                      placeholder="Enter your salary"
+                      inputMode="numeric"
+                      onChange={onSalaryChange}
+                    />
                   </NumberInput>
                   <InputRightAddon children="₾" />
                 </InputGroup>
               </Box>
             </Center>
-            {currentSalary !== 0 ? <Box mt="5" textAlign={"center"}>
-              <Text fontSize={"xl"}>You will receive by</Text>
-              <Text fontWeight="bold" fontSize={"2xl"}>
-                {(Math.round(Math.abs(salaryDiff) * 100) / 100).toFixed(2)}₾
-              </Text>
-              <Text fontSize={"xl"}>
-                <strong>{salaryDiff > 0 ? "more" : "less"}</strong> salary in this month and it would be
-              </Text>
-              <Text fontWeight="bold" fontSize={"3xl"}>{(Math.round(currentSalary * 100) / 100).toFixed(2)}₾</Text>
-              <Text fontSize={"xl"}>in total</Text>
-            </Box> : <></>}
+            {currentSalary !== 0 ? (
+              <Box mt="5" textAlign={"center"}>
+                <Text fontSize={"xl"}>You will receive by</Text>
+                <Text fontWeight="bold" fontSize={"2xl"}>
+                  {(Math.round(Math.abs(salaryDiff) * 100) / 100).toFixed(2)}₾
+                </Text>
+                <Text fontSize={"xl"}>
+                  <strong>{salaryDiff > 0 ? "more" : "less"}</strong> salary in
+                  this month and it would be
+                </Text>
+                <Text fontWeight="bold" fontSize={"3xl"}>
+                  {(Math.round(currentSalary * 100) / 100).toFixed(2)}₾
+                </Text>
+                <Text fontSize={"xl"}>in total</Text>
+              </Box>
+            ) : (
+              <></>
+            )}
           </TabPanel>
         </TabPanels>
       </Tabs>
-    </Layout>);
+    </Layout>
+  );
 }
